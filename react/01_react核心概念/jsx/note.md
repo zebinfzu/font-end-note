@@ -144,5 +144,46 @@ class Cpn extends React.Component {
 
 React.createElement 的参数：
 
-1. type，当前 ReactElement 元素的类型
-   1. 如果
+1. 参数一：type，当前 ReactElement 元素的类型
+   1. 如果是标签元素，直接使用字符串"div"
+   2. 如果是组件元素，就使用组件名
+2. 参数二：config，所有 jsx 中的属性都在 config 中以对象的属性和值的形式存储
+3. 参数三：children，存放在标签里面的内容，以 children 数组的方式存储(js 函数隐藏参数，函数参数列表不写明的参数传入就会储存在 children 数组中)
+
+babeljs.io 网站可以将 jsx 转义成实际的 React.createElement 的调用，下面是一段 jsx 转换的参考
+
+```jsx
+const e = (
+  <div>
+    <h1>h1 element</h1>
+    <span className="content">span element</span>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+    </ul>
+  </div>
+);
+```
+
+```js
+"use strict";
+
+var e = /*#__PURE__*/ React.createElement(
+  "div",
+  null,
+  /*#__PURE__*/ React.createElement("h1", null, "h1 element"),
+  /*#__PURE__*/ React.createElement(
+    "span",
+    {
+      className: "content",
+    },
+    "span element"
+  ),
+  /*#__PURE__*/ React.createElement(
+    "ul",
+    null,
+    /*#__PURE__*/ React.createElement("li", null, "1"),
+    /*#__PURE__*/ React.createElement("li", null, "2")
+  )
+);
+```
