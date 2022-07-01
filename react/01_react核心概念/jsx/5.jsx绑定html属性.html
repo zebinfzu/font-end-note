@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .red {
+        color: red;
+      }
+      #one {
+        background: orange;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            redClass: "red",
+            oneId: "one",
+            styleObj: {
+              display: "inline-block",
+              fontSize: "15px",
+              border: "2px solid green",
+            },
+            imgUrl:
+              "https://wechatapppro-1252524126.file.myqcloud.com/appuwwsm6cl6690/image/b_u_6216026f4bce0_QSywwter/l4xua23s0l4z.png",
+          };
+        }
+        render() {
+          return (
+            <div>
+              <div className={this.state.redClass}>绑定class</div>
+              <div id={this.state.oneId}>绑定id</div>
+              <div style={this.state.styleObj}>绑定style</div>
+              <img src={this.state.imgUrl} alt="图片获取失败" />
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>

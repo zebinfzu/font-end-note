@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            counter: 0,
+          };
+        }
+        render() {
+          return (
+            <div>
+              {/* 事件绑定会交给react来处理，因此直接写函数名将会丢失this */}
+              <button onClick={this.increase}>+</button>
+              {/* 解决方式一：bind需要的this */}
+              <button onClick={this.increase.bind(this)}>+</button>
+              {/* 解决方式二：绑定一个箭头函数 */}
+              <button onClick={this.decrease}>-</button>
+              {/* 解决方式三：绑定的时候写一个匿名函数，这样也可以方便给绑定函数传参 */}
+              <button onClick={(e) => this.changeCounter(e, 2)}>+2</button>
+              <span>counter: {this.state.counter}</span>
+            </div>
+          );
+        }
+        increase() {
+          this.setState({
+            counter: this.state.counter + 1,
+          });
+        }
+        decrease = () => {
+          this.setState({
+            counter: this.state.counter - 1,
+          });
+        };
+        changeCounter(event, num) {
+          console.log(event);
+          this.setState({
+            counter: this.state.counter + num,
+          });
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
