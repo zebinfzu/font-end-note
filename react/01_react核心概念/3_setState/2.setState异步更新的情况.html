@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = {
+            message: "Hello World",
+          };
+        }
+
+        render() {
+          return (
+            <div>
+              <h2>当前计数: {this.state.message}</h2>
+              <button onClick={(e) => this.changeText()}>改变文本</button>
+              <Home message={this.state.message} />
+            </div>
+          );
+        }
+
+        componentDidUpdate() {
+          // 方式二: 获取异步更新的state
+          console.log(this.state.message);
+        }
+
+        changeText() {
+          // 2.setState是异步更新
+          // this.setState({
+          //   message: "你好啊,李银河"
+          // })
+          // console.log(this.state.message); // Hello World
+
+          // 方式一: 获取异步更新后的数据
+          // setState(更新的state, 回调函数)
+          this.setState(
+            {
+              message: "你好啊,李银河",
+            },
+            () => {
+              console.log(this.state.message);
+            }
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
