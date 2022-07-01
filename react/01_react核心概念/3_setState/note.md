@@ -73,3 +73,31 @@ increment() {
 }
 
 ```
+
+## 数据不可变
+
+react 的设计理念是 state 应该是像电影的帧一样，所以下一帧不应该包含上一帧的内容，因此在更新 state 的时候，使用的数据应该是新生成的，务必不要使用原来的引用类型来设置新的 state
+
+```js
+this.state = {
+  friends: [
+    { name: "zhang", age: 12 },
+    { name: "li", age: 12 },
+    { name: "liu", age: 13 },
+    { name: "wu", age: 14 },
+  ],
+};
+// 1.在开发中不要这样来做
+// const newData = {name: "tom", age: 30}
+// this.state.friends.push(newData);
+// this.setState({
+//   friends: this.state.friends
+// });
+// 2. 推荐的做法
+// 不是修改原数据而是产生新的数组（不一样的内存地址）
+const newFriends = [...this.state.friends];
+newFriends.push({ name: "tom", age: 30 });
+this.setState({
+  friends: newFriends,
+});
+```
