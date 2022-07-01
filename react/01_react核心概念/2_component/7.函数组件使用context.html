@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      const { Component } = React;
+      // 1. 创建context对象
+      const UserContext = React.createContext({
+        nickname: "react",
+        level: -1,
+      });
+      // 2. 函数组件的返回值需要使用context对象的consumer方法作为标签包裹
+      // 并且需要将原来函数组件的返回值作为一个函数的返回值以{}插入
+      function ProfileHeader() {
+        return (
+          <UserContext.Consumer>
+            {(value) => (
+              <div>
+                <h2>用户昵称: {value.nickname}</h2>
+                <h2>用户等级: {value.level}</h2>
+              </div>
+            )}
+          </UserContext.Consumer>
+        );
+      }
+      function Profile(props) {
+        return (
+          <div>
+            <ProfileHeader />
+            <ul>
+              <li>设置1</li>
+              <li>设置2</li>
+              <li>设置3</li>
+              <li>设置4</li>
+            </ul>
+          </div>
+        );
+      }
+      class App extends Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            nickname: "kobe",
+            level: 99,
+          };
+        }
+        // 3. 提供context的地方使用context.Provider作为容器标签包裹后代要使用context的组件，可以使用value来对context进行赋值
+        render() {
+          return (
+            <div>
+              <UserContext.Provider value={this.state}>
+                <Profile />
+              </UserContext.Provider>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>

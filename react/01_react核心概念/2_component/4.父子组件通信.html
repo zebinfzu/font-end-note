@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      function Child(props) {
+        return (
+          <div>
+            <button onClick={props.increment}>+</button>
+            <div>{props.name}</div>
+          </div>
+        );
+      }
+      class Father extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            counter: 0,
+            name: "jjj",
+          };
+        }
+        render() {
+          return (
+            <div>
+              <span>{this.state.counter}</span>
+              <Child
+                increment={(e) => this.increment()}
+                name={this.state.name}
+              />
+            </div>
+          );
+        }
+        increment() {
+          this.setState({
+            counter: this.state.counter + 1,
+          });
+        }
+      }
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {};
+        }
+        render() {
+          return (
+            <div>
+              <Father />
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>

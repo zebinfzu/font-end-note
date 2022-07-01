@@ -125,6 +125,6 @@ react 组件主要可以分为类组件(class component)和函数式组件(funct
    ```
 3. **非父子组件使用 context**
    1. React.createContext 创建一个 共享的 context 对象
-   2. context.Provider
-   3. context.Consumer
+   2. context.Provider 用来在共享的源头把数据提供出去，作为标签包裹下面回用到共享数据的组件
+   3. context.Consumer 用来使用共享数据，作为标签包裹要使用 context 数据的当前组件
 4. 使用 redux 做数据管理，详细看 redux
