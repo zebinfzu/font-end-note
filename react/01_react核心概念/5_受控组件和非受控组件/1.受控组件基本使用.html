@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            username: "",
+          };
+        }
+        render() {
+          return (
+            <div>
+              <form onSubmit={(e) => this.handleSubmit(e)}>
+                <label htmlFor="username">
+                  用户：
+                  {/*受控组件*/}
+                  <input
+                    type="text"
+                    id="username"
+                    onChange={(e) => this.handleChange(e)}
+                    value={this.state.username}
+                  />
+                  <input type="submit" value="提交" />
+                </label>
+              </form>
+            </div>
+          );
+        }
+        handleSubmit(event) {
+          // 阻止默认事件
+          event.preventDefault();
+          console.log(this.state.username);
+        }
+
+        handleChange(event) {
+          // 监听onchange事件重新setState
+          this.setState({
+            username: event.target.value,
+          });
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
