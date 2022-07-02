@@ -87,3 +87,35 @@ class App extends React.Component {
   - 返回值：布尔值，true 表示应该更新，false 表示不需要更新
 - 如果所有类都手动实现 shouldComponentUpdate 方法太繁琐了，可以让类继承自**PureComponent**自动实现只有页面中依赖的 state 和 props 变化时才会调用 render 的功能
 - 对于函数组件可以将组件传给高阶函数**memo**，会返回一个 Pure 化的函数组件
+
+## ref
+
+React 当中一般不需要获取 或直接操作原生 DOM，但当有些场景任然需要使用和操作原生 DOM 的时候，React 提供了 refs，常见与以下场景：
+
+1. 管理焦点、文本选择或者媒体播放
+2. 强制触发动画
+3. 集成制作第三方 DOM 库
+
+创建 refs 来获取对应 DOM 的方式：
+
+1. 传入字符串，使用时通过 this.refs.传入的字符串格式获取对应的元素
+2. 传入一个对象
+   - 对象通过 React.createRef()来创建
+   - 使用时获取到创建的对象其中有一个 current 属性就是对应的元素
+3. 传入一个函数
+   - 该函数会在 DOM 被挂载时进行回调，这个函数会传入一个 元素对象
+   - 使用时，直接拿到之前保存的元素对象即可
+
+添加 ref 的方式：在要使用 ref 的元素上添加属性 ref 并赋值，赋值类型可以是字符串、对象或者回调函数
+
+在内存中拿到 ref 的方式：
+
+1. ref="str", 在内存中使用 this.refs.str
+2. ref={this.refObj} 在内存中使用 this.refObj.current
+3. ref={arg => this.refCallback = arg} 在内存中使用 this.refCallback
+
+ref 的类型：
+
+1. 当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性
+2. 当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性
+3. **不能在函数组件上使用 ref 属性**，因为他们没有实例

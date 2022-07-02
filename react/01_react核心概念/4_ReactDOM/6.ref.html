@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      class Counter extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            counter: 0,
+          };
+        }
+        render() {
+          return (
+            <div>
+              <h2>当前计数：{this.state.counter}</h2>
+              <button onClick={(e) => this.increment()}>+1</button>
+            </div>
+          );
+        }
+        increment() {
+          this.setState({
+            counter: this.state.counter,
+          });
+        }
+      }
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {};
+          this.titleRef = createRef();
+          this.counterRef = createRef();
+          this.titleEl = null;
+        }
+        render() {
+          return (
+            <div>
+              {/* 创建ref的方式：在元素上添加属性ref=字符串/对象/函数 */}
+              <h2 ref="titleRef">Hello React</h2>
+              {/*React最推荐的方式*/}
+              <h2 ref={this.titleRef}>Hello React</h2>
+              <h2 ref={(arg) => (this.titleEl = arg)}>Hello React</h2>
+              <button onClick={(e) => this.changeText()}>改变文本</button>
+              <hr />
+              {/*React组件使用ref拿到的是当前的实例*/}
+              <Counter ref={this.counterRef} />
+              <button onClick={(e) => this.appBtnClick()}>App按钮</button>
+            </div>
+          );
+        }
+        changeText() {
+          // 1.使用方式一: 字符串(不推荐, 后续的更新会删除)
+          this.refs.titleRef.innerHTML = "Hello Vue";
+          // 2.使用方式二: 对象方式
+          this.titleRef.current.innerHTML = "Hello JavaScript";
+          // 3.使用方式三: 回调函数方式
+          this.titleEl.innerHTML = "Hello TypeScript";
+        }
+
+        appBtnClick() {
+          this.counterRef.current.increment();
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
