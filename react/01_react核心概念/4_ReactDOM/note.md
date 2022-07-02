@@ -119,3 +119,5 @@ ref 的类型：
 1. 当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性
 2. 当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性
 3. **不能在函数组件上使用 ref 属性**，因为他们没有实例
+
+函数组件使用 ref 的方式：通过高阶函数 forwardRef，接受一个函数作为参数，这个函数相比与一般的函数组件处理可以接受 props 作为参数还可以接受第二个参数 ref，但是这样的 ref 参数同样和 props 一样**是父组件传进来的**
