@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      // 创建context
+      const userContext = createContext({
+        nickname: "默认",
+        level: -1,
+        region: "china",
+      });
+      // 自定义高阶组件，共享userContext
+      function withUser(WrappedComponent) {
+        return (props) => {
+          return (
+            <UserContext.Consumer>
+              {(user) => {
+                return <WrappedComponent {...props} {...user} />;
+              }}
+            </UserContext.Consumer>
+          );
+        };
+      }
+      class Home extends React.PureComponent {
+        render() {
+          return (
+            <h2>
+              Home:{" "}
+              {`昵称: ${this.props.nickname} 等级: ${this.props.level} 区域: ${this.props.region}`}
+            </h2>
+          );
+        }
+      }
+      const UserHome = withUser(Home);
+      class App extends PureComponent {
+        render() {
+          return (
+            <div>
+              App
+              <UserContext.Provider
+                value={{ nickname: "why", level: 90, region: "中国" }}
+              >
+                <UserHome />
+              </UserContext.Provider>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
