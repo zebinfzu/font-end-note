@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加React的依赖 -->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      const { PureComponent, Fragment } = React;
+      class App extends PureComponent {
+        constructor(props) {
+          super(props);
+          this.state = {
+            movies: [
+              { name: "大话西游", time: "13:00", price: 200 },
+              { name: "让子弹飞", time: "13:00", price: 200 },
+              { name: "太阳照常升起", time: "13:00", price: 200 },
+              { name: "时空穿越", time: "13:00", price: 200 },
+            ],
+          };
+        }
+        render() {
+          return (
+            <Fragment>
+              <h2>movies</h2>
+              <div>
+                {this.state.movies.map((item, index) => {
+                  return (
+                    <Fragment key={item.name}>
+                      <h3>{item.name}</h3>
+                      <p>{item.time}</p>
+                      <hr />
+                    </Fragment>
+                  );
+                })}
+              </div>
+            </Fragment>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
