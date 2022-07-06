@@ -10,7 +10,13 @@ function App() {
         <Link to="/">首页</Link>
         <Link to="/user">用户中心</Link>
         <Link to="/login">登录</Link>
-        <Route path="/" exact component={HomePage} />
+        <Route
+          path="/"
+          exact
+          children={children}
+          component={HomePage}
+          render={render}
+        />
         <Route path="/user" component={UserPage} />
         <Route path="/login" component={LoginPage} />
       </Router>
@@ -19,3 +25,11 @@ function App() {
 }
 
 export default App;
+
+function children(props) {
+  return <div>children</div>;
+}
+
+function render(props) {
+  return <div>render</div>;
+}
