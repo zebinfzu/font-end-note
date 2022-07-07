@@ -1,13 +1,18 @@
-import Home from '../pages/home';
-import About, { AboutHisotry, AboutCulture, AboutContact, AboutJoin } from '../pages/about';
-import Profile from '../pages/profile';
-import User from '../pages/user';
+import Home from "../pages/home";
+import About, {
+  AboutHisotry,
+  AboutCulture,
+  AboutContact,
+  AboutJoin,
+} from "../pages/about";
+import Profile from "../pages/profile";
+import User from "../pages/user";
 
 const routes = [
   {
     path: "/",
     exact: true,
-    component: Home
+    component: Home,
   },
   {
     path: "/about",
@@ -16,30 +21,30 @@ const routes = [
       {
         path: "/about",
         exact: true,
-        component: AboutHisotry
+        component: AboutHistory,
       },
       {
         path: "/about/culture",
-        component: AboutCulture
+        component: AboutCulture,
       },
       {
         path: "/about/contact",
-        component: AboutContact
+        component: AboutContact,
       },
       {
         path: "/about/join",
-        component: AboutJoin
+        component: AboutJoin,
       },
-    ]
+    ],
   },
   {
     path: "/profile",
-    component: Profile
+    component: Profile,
   },
   {
     path: "/user",
-    component: User
-  }
-]
+    component: User,
+  },
+];
 
 export default routes;

@@ -26,7 +26,7 @@ HTML5 的 history，它有六种模式改变 URL 而不刷新页面：
 ## 安装 react-router
 
 ```
-yarn add react-router-dom
+yarn add react-router-dom@5
 ```
 
 ## 使用 react-router
